@@ -16,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!(@bundled-es-modules)/)\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -38,6 +38,6 @@
     ]
   },
   "devDependencies": {
-    "msw": "^1.3.5"
+    "msw": "^2.3.0"
   }
 }

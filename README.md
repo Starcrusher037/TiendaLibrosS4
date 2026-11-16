@@ -19,6 +19,7 @@ Aplicación web desarrollada con **React** para la exploración y compra simulad
 
 - **React 19**
 - **React Router 8** (enrutamiento declarativo del lado del cliente)
+- **MSW 2 (Mock Service Worker)** (simulación de API REST interceptando peticiones con `http` y `HttpResponse`)
 - **Testing Library & Jest** (pruebas unitarias y de integración)
 - **CSS3** (diseño flexible con CSS Grid, Flexbox y Variables CSS personalizadas)
 
@@ -38,6 +39,10 @@ tiendalibros/
 │   │   ├── LoadingSpinner/ # Indicador de carga
 │   │   └── Navbar/         # Barra de navegación principal
 │   ├── data/               # Datos simulados (mockData.js)
+│   ├── mocks/              # Configuración de MSW (Mock Service Worker)
+│   │   ├── browser.js      # Worker para navegador (setupWorker)
+│   │   ├── handlers.js     # Manejadores de rutas REST con http y HttpResponse
+│   │   └── server.js       # Servidor para tests con Node/Jest (setupServer)
 │   ├── pages/              # Vistas principales de la aplicación
 │   │   ├── AboutPage/      # Información sobre la tienda
 │   │   ├── BookDetailPage/ # Ficha del libro
@@ -46,7 +51,7 @@ tiendalibros/
 │   │   ├── CategoryDetailPage/ # Libros de una categoría
 │   │   ├── HomePage/       # Página principal
 │   │   └── NotFoundPage/   # Página 404
-│   ├── services/           # Capa de datos y API simulada (api.js)
+│   ├── services/           # Capa de consumo de API REST (api.js con fetch)
 │   ├── styles/             # Variables y reglas globales
 │   │   ├── global.css      # Reset, estilos base y clases utilitarias
 │   │   └── variables.css   # Paleta de colores, sombras y tipografías
@@ -54,7 +59,9 @@ tiendalibros/
 │   ├── App.js              # Enrutador y estructura base
 │   ├── App.test.js         # Suite de pruebas automatizadas
 │   ├── index.css           # Estilos base del documento
-│   └── index.js            # Punto de entrada de React
+│   ├── index.js            # Punto de entrada de React
+│   ├── polyfills.js        # Polyfills de Web APIs para Jest/JSDOM con MSW v2
+│   └── setupTests.js       # Configuración global de tests y ciclo de vida de MSW
 ├── package.json
 └── README.md
 ```

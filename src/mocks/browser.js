@@ -1,4 +1,4 @@
-import { setupWorker } from 'msw';
+import { setupWorker } from 'msw/browser';
 import { handlers } from './handlers';
 
 // Worker MSW para el entorno navegador (desarrollo)

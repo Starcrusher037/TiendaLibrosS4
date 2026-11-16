@@ -1,49 +1,51 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { categories, books } from '../data/mockData';
 
 export const handlers = [
   // GET /api/categories — lista todas las categorías
-  rest.get('/api/categories', (req, res, ctx) => {
-    return res(ctx.json([...categories]));
+  http.get('/api/categories', () => {
+    return HttpResponse.json([...categories]);
   }),
 
   // GET /api/categories/:categoryId/books — libros de una categoría
-  rest.get('/api/categories/:categoryId/books', (req, res, ctx) => {
-    const { categoryId } = req.params;
+  http.get('/api/categories/:categoryId/books', ({ params }) => {
+    const { categoryId } = params;
     const category = categories.find((c) => c.id === categoryId);
     if (!category) {
-      return res(
-        ctx.status(404),
-        ctx.json({ message: `Categoría "${categoryId}" no encontrada.` })
+      return HttpResponse.json(
+        { message: `Categoría "${categoryId}" no encontrada.` },
+        { status: 404 }
       );
     }
     const filtered = books.filter((b) => b.categoryId === categoryId);
-    return res(ctx.json(filtered));
+    return HttpResponse.json(filtered);
   }),
 
   // GET /api/categories/:categoryId — detalle de una categoría
-  rest.get('/api/categories/:categoryId', (req, res, ctx) => {
-    const { categoryId } = req.params;
+  http.get('/api/categories/:categoryId', ({ params }) => {
+    const { categoryId } = params;
     const category = categories.find((c) => c.id === categoryId);
     if (!category) {
-      return res(
-        ctx.status(404),
-        ctx.json({ message: `Categoría "${categoryId}" no encontrada.` })
+      return HttpResponse.json(
+        { message: `Categoría "${categoryId}" no encontrada.` },
+        { status: 404 }
       );
     }
-    return res(ctx.json(category));
+    return HttpResponse.json(category);
   }),
 
   // GET /api/books/featured — libros destacados
-  rest.get('/api/books/featured', (req, res, ctx) => {
-    const limit = parseInt(req.url.searchParams.get('limit') || '4', 10);
+  http.get('/api/books/featured', ({ request }) => {
+    const url = new URL(request.url);
+    const limit = parseInt(url.searchParams.get('limit') || '4', 10);
     const featured = books.filter((b) => b.rating >= 4.8).slice(0, limit);
-    return res(ctx.json(featured));
+    return HttpResponse.json(featured);
   }),
 
   // GET /api/books — todos los libros (con búsqueda opcional ?search=)
-  rest.get('/api/books', (req, res, ctx) => {
-    const query = req.url.searchParams.get('search') || '';
+  http.get('/api/books', ({ request }) => {
+    const url = new URL(request.url);
+    const query = url.searchParams.get('search') || '';
     let result = [...books];
     if (query.trim()) {
       const lower = query.toLowerCase();
@@ -54,19 +56,19 @@ export const handlers = [
           (b.categoryName && b.categoryName.toLowerCase().includes(lower))
       );
     }
-    return res(ctx.json(result));
+    return HttpResponse.json(result);
   }),
 
   // GET /api/books/:bookId — detalle de un libro
-  rest.get('/api/books/:bookId', (req, res, ctx) => {
-    const { bookId } = req.params;
+  http.get('/api/books/:bookId', ({ params }) => {
+    const { bookId } = params;
     const book = books.find((b) => String(b.id) === String(bookId));
     if (!book) {
-      return res(
-        ctx.status(404),
-        ctx.json({ message: `Libro "${bookId}" no encontrado.` })
+      return HttpResponse.json(
+        { message: `Libro "${bookId}" no encontrado.` },
+        { status: 404 }
       );
     }
-    return res(ctx.json(book));
+    return HttpResponse.json(book);
   }),
 ];
