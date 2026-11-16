@@ -30,6 +30,7 @@ Aplicación web desarrollada con **React** para la exploración y compra simulad
 ```text
 tiendalibros/
 ├── public/                 # Archivos públicos y plantilla HTML
+│   └── mockServiceWorker.js# Worker de MSW para interceptar peticiones en navegador
 ├── src/
 │   ├── components/         # Componentes reutilizables
 │   │   ├── BookCard/       # Tarjeta de presentación de libro
@@ -100,4 +101,23 @@ Empaqueta y minifica React de manera eficiente para lograr el mejor rendimiento.
 > Esta operación es unidireccional. Una vez ejecutado `eject`, no se puede revertir.
 
 Si deseas personalizar completamente las herramientas de compilación (Webpack, Babel, ESLint, etc.), este comando copia todos los archivos de configuración a tu proyecto.
+
+---
+
+## Estado del Manejo de Stock e Inventario
+
+> [!NOTE]
+> En esta etapa del proyecto el foco principal está en la **integración y prueba de MSW (Mock Service Worker)** para la simulación de servicios y consumo de APIs REST (`http` y `HttpResponse`).
+>
+> Por esta razón, el manejo de stock se encuentra desarrollado en un **estado básico**:
+> - La disponibilidad de unidades es de carácter informativo y de solo lectura.
+> - La acción de "Agregar al pedido" opera únicamente como una simulación o reserva a nivel de interfaz de usuario.
+> - No actualiza inventario, no descuenta existencias ni persiste mutaciones en el servicio mock, manteniéndose acotado al alcance solicitado para esta etapa.
+
+---
+
+## Licencia
+
+Proyecto desarrollado con fines académicos y de demostración.
+
 
