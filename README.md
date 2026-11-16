@@ -101,8 +101,3 @@ Empaqueta y minifica React de manera eficiente para lograr el mejor rendimiento.
 
 Si deseas personalizar completamente las herramientas de compilación (Webpack, Babel, ESLint, etc.), este comando copia todos los archivos de configuración a tu proyecto.
 
----
-
-## Licencia
-
-Proyecto desarrollado con fines académicos y de demostración.
